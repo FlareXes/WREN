@@ -10,7 +10,7 @@ def index(request):
 
 def blog(request):
     context = {
-        'blog': Post.objects.all(),
+        'blog': Post.objects.all().order_by('-date_created'),
     }
     return render(request, 'APP_BLOG/blog.html', context)
 

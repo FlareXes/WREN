@@ -1,20 +1,234 @@
-{% extends 'APP_BLOG/base.html' %}
 {% load static %}
+{% load markdown_extras %}
 
-{% block content %}
-    <section class="hero" id="home" aria-label="home">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+      - primary meta tags
+    -->
+    <title>Wren - Personal Blog Website</title>
+    <meta name="title" content="Wren - Perosonal Blog Website">
+    <meta name="description" content="This is a blog html template made by codewithsadee">
+
+    <!--
+      - favicon
+    -->
+    <link rel="shortcut icon" href="{% static 'APP_BLOG/images/favicon.svg' %}" type="image/svg+xml">
+
+    <!--
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!--
+      - custom css link
+    -->
+    <link rel="stylesheet" href="{% static 'APP_BLOG/css/style.css' %}">
+
+    <!--
+      - preload images
+    -->
+    <link rel="preload" as="image" href="{% static 'APP_BLOG/images/hero-banner.png' %}">
+    <link rel="preload" as="image" href="{% static 'APP_BLOG/images/pattern-2.svg' %}">
+    <link rel="preload" as="image" href="{% static 'APP_BLOG/images/pattern-3.svg' %}">
+
+</head>
+
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: hsla(222, 47%, 11%, 1);
+    }
+
+    .cover-image {
+        width: 100%;
+        height: 300px;
+        /* Adjust the height as needed */
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .cover-image {
+        width: 100%;
+        max-height: 700px;
+        /* Set the max height as needed */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .post-content {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+        margin-top: 2%
+    }
+
+    pre {
+        margin: 2%;
+        overflow-wrap: break-word;
+    }
+
+</style>
+
+<body id="top">
+
+    <header class="header" data-header>
         <div class="container">
 
-            {{ post.content | safe }}
+            <a href="#" class="logo">
+                <img src="{% static 'APP_BLOG/images/logo.svg' %}" width="119" height="37" alt="Wren logo">
+            </a>
 
+            <nav class=" navbar" data-navbar>
 
-            <img src="{% static 'APP_BLOG/images/shadow-1.svg' %}" width="500" height="800" alt=""
-                 class=" hero-bg hero-bg-1">
+                <div class="navbar-top">
+                    <a href="#" class="logo">
+                        <img src="{% static 'APP_BLOG/images/logo.svg' %}" width="119" height="37" alt="Wren logo">
+                    </a>
 
-            <img src="{% static 'APP_BLOG/images/shadow-2.svg' %}" width="500" height="500" alt=""
-                 class=" hero-bg hero-bg-2">
+                    <button class=" nav-close-btn" aria-label="close menu" data-nav-toggler>
+                        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                    </button>
+                </div>
+
+                <ul class="navbar-list">
+
+                    <li>
+                        <a href="#home" class="navbar-link hover-1" data-nav-toggler>Home</a>
+                    </li>
+
+                    <li>
+                        <a href="/blog" class="navbar-link hover-1" data-nav-toggler>Blog</a>
+                    </li>
+
+                    <li>
+                        <a href="#featured" class="navbar-link hover-1" data-nav-toggler>Featured Post</a>
+                    </li>
+
+                    <li>
+                        <a href="#recent" class="navbar-link hover-1" data-nav-toggler>Recent Post</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="navbar-link hover-1" data-nav-toggler>Contact</a>
+                    </li>
+
+                </ul>
+
+                <div class="navbar-bottom">
+
+                    <div class="profile-card">
+                        <img src="{% static 'APP_BLOG/images/author-1.png' %}" width="48" height="48" alt="Steven"
+                            class=" profile-banner">
+
+                        <div>
+                            <p class="card-title">Hello Steven !</p>
+
+                            <p class="card-subtitle">
+                                You have 3 new messages
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="link-list">
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">Profile</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">Articles Saved</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">Add New Post</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">My Likes</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">Account Setting</a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="navbar-bottom-link hover-1">Sign Out</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <p class="copyright-text">
+                    Copyright 2022 © Wren - Personal Blog Template.
+                    Developed by codewithsadee
+                </p>
+
+            </nav>
+
+            <a href="#" class="btn btn-primary">Subscribe</a>
+
+            <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+            </button>
+
         </div>
+    </header>
+
+    <section class="hero container" id="home" aria-label="home">
+
+
+        <div class="cover-image" style="background-image: url('{{ post.thumbnail.url }}');margin-bottom: 5%;">
+            <!-- You can add additional elements or text overlay here if needed -->
+        </div>
+
+
+        <div style="color: white">
+        {{ post.content | markdown | safe }}
+        </div>
+
     </section>
 
+    <br>
+    <br>
+    <br>
 
-{% endblock content %}
+
+    <!-- 
+        Don't  touch 
+    -->
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="{% static 'APP_BLOG/js/script.js' %}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
